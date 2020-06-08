@@ -53,11 +53,11 @@ class CutiController extends Controller
         ]);
         
         // limt cuti
-        $max_cuti = 12; // 12 hari
+        $max_cuti = env('MAX_CUTI_DAY', 12); // 12 hari
         $to = Carbon::parse($request->tanggal_cuti);
         $from = Carbon::parse($request->tanggal_masuk);
         $diff_in_days = $to->diffInDays($from);
-        if ($diff_in_days > $max_cuti)
+        if ($diff_in_days > intval($max_cuti))
         {
             return redirect()->back()->withInput()->withErrors(['Cuti maksimal 12 Hari.']);
         }

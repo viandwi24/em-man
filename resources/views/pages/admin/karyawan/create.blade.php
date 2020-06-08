@@ -6,13 +6,14 @@
             <div class="card-header">
                 <h4>Tambah Karyawan</h4>
             </div>
-            <form action="{{ url()->route('admin.karyawan.store') }}" method="post">
+            <form action="{{ url()->route('admin.karyawan.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 mb-4">
-                            <img alt="image" src="{{ asset('assets/img/no-avatar.png') }}" class="img-fluid border">
-                            <button type="button" class="btn btn-primary btn-block"><i class="fa fa-image"></i> Ganti Foto</button>
+                            <img id="image" alt="image" src="{{ asset('assets/img/no-avatar.png') }}" class="img-fluid border">
+                            <input type="file" name="foto" id="foto" style="display: none;">
+                            <button id="btn-change-foto" type="button" class="btn btn-primary btn-block"><i class="fa fa-image"></i> Ganti Foto</button>
                         </div>
 
                         <div class="col-lg-9">
@@ -118,9 +119,11 @@
                                                 <label>Unit</label>
                                                 <div>
                                                     <select value="{{ old('unit_id') }}" name="unit_id" class="form-control select2" style="width: 100%;">
-                                                        <option value="" selected>--Pilih Unit--</option>
+                                                        @if (!old('unit_id'))                                           
+                                                            <option value="" selected>--Pilih Unit--</option>
+                                                        @endif
                                                         @foreach ($units as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                            <option value="{{ $item->id }}" {{ old('unit_id') ? (old('unit_id') == $item->id ? 'selected' : '') : '' }}>{{ $item->nama }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -131,9 +134,11 @@
                                                 <label>Outsourcing</label>
                                                 <div>
                                                     <select value="{{ old('outsourcing_id') }}" name="outsourcing_id" class="form-control select2" style="width: 100%;">
-                                                        <option value="" selected>--Pilih Outsourcing--</option>
+                                                        @if (!old('outsourcing_id'))                                                            
+                                                            <option value="" selected>--Pilih Outsourcing--</option>
+                                                        @endif
                                                         @foreach ($outsourcings as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                            <option value="{{ $item->id }}" {{ old('outsourcing_id') ? (old('outsourcing_id') == $item->id ? 'selected' : '') : '' }}>{{ $item->nama }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -146,9 +151,11 @@
                                                 <label>Bagian</label>
                                                 <div>
                                                     <select value="{{ old('bagian_id') }}" name="bagian_id" class="form-control select2" style="width: 100%;">
-                                                        <option value="" selected>--Pilih Bagian--</option>
+                                                        @if (!old('bagian_id'))                                                            
+                                                            <option value="" selected>--Pilih Bagian--</option>
+                                                        @endif
                                                         @foreach ($bagians as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                            <option value="{{ $item->id }}" {{ old('bagian_id') ? (old('bagian_id') == $item->id ? 'selected' : '') : '' }}>{{ $item->nama }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -159,9 +166,11 @@
                                                 <label>Jabatan</label>
                                                 <div>
                                                     <select value="{{ old('jabatan_id') }}" name="jabatan_id" class="form-control select2" style="width: 100%;">
-                                                        <option value="" selected>--Pilih Jabatan--</option>
+                                                        @if (!old('jabatan_id'))                                                            
+                                                            <option value="" selected>--Pilih Jabatan--</option>
+                                                        @endif
                                                         @foreach ($jabatans as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                            <option value="{{ $item->id }}" {{ old('jabatan_id') ? (old('jabatan_id') == $item->id ? 'selected' : '') : '' }}>{{ $item->nama }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -191,4 +200,22 @@
 @push('js-library')
     <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>  
     <script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>  
+@endpush
+
+@push('js')
+    <script>
+        $('#btn-change-foto').on('click', () => $('#foto').click())
+        $('#foto').on('change', (evt) => {
+            var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+            // FileReader support
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    $('#image').attr('src', fr.result);
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        })
+    </script>
 @endpush

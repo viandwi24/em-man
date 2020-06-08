@@ -30,6 +30,8 @@ Route::group([
     Route::resource('/cuti', 'CutiController');
     Route::resource('/rencana', 'RencanaController');
     Route::resource('/mutasi', 'MutasiController');
+    Route::get('/laporan', 'LaporanController@index')->name('laporan');
+    Route::get('/laporan/{id}', 'LaporanController@show')->name('laporan.show');
 });
 
 
@@ -39,3 +41,17 @@ Route::group([], function () {
     Route::post('/login', 'LoginController@login')->name('login.post');
     Route::get('/logout', 'LoginController@logout')->name('logout');
 });
+
+
+Route::get('foto_karyawan/{filename}', function ($filename)
+{
+    $path = storage_path('app/foto_karyawan/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+})->name('foto_karyawan');

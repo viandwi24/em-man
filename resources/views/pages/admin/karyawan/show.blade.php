@@ -12,8 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 mb-4">
-                            <img alt="image" src="{{ asset('assets/img/no-avatar.png') }}" class="img-fluid border">
-                            <button type="button" class="btn btn-primary btn-block"><i class="fa fa-image"></i> Ganti Foto</button>
+                            <img alt="image" src="{{ url()->route('foto_karyawan', [$karyawan->foto]) }}" class="img-fluid border" id="image">
                         </div>
 
                         <div class="col-lg-9">

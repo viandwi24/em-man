@@ -44,4 +44,9 @@ class Karyawan extends Model
     {
         return $this->hasMany('App\Models\Cuti');
     }
+
+    public function mutasi()
+    {
+        return $this->hasMany('App\Models\Mutasi');
+    }
 }

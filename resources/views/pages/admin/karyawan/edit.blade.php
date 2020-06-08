@@ -6,14 +6,15 @@
             <div class="card-header">
                 <h4>Edit Karyawan</h4>
             </div>
-            <form action="{{ url()->route('admin.karyawan.update', [$karyawan->id]) }}" method="post">
+            <form action="{{ url()->route('admin.karyawan.update', [$karyawan->id]) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 mb-4">
-                            <img alt="image" src="{{ asset('assets/img/no-avatar.png') }}" class="img-fluid border">
-                            <button type="button" class="btn btn-primary btn-block"><i class="fa fa-image"></i> Ganti Foto</button>
+                            <img alt="image" src="{{ url()->route('foto_karyawan', [$karyawan->foto]) }}" class="img-fluid border" id="image">
+                            <input type="file" name="foto" id="foto" style="display: none;">
+                            <button id="btn-change-foto" type="button" class="btn btn-primary btn-block"><i class="fa fa-image"></i> Ganti Foto</button>
                         </div>
 
                         <div class="col-lg-9">
@@ -188,4 +189,22 @@
 @push('js-library')
     <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>  
     <script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>  
+@endpush
+
+@push('js')
+    <script>
+        $('#btn-change-foto').on('click', () => $('#foto').click())
+        $('#foto').on('change', (evt) => {
+            var tgt = evt.target || window.event.srcElement,
+            files = tgt.files;
+            // FileReader support
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    $('#image').attr('src', fr.result);
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        })
+    </script>
 @endpush

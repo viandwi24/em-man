@@ -5,9 +5,15 @@
         </script>
     @endif
 
-    @if ($errors->any())
+    {{-- @if ($errors->any())
+        @php $i=0; @endphp
         @foreach ($errors->all() as $error)
+            @php if ($i == 1) { break; } else { $i++; } @endphp
             <script>iziToast.error({ title: 'Error', message: '{{ $error }}', });</script>
         @endforeach
+    @endif --}}
+
+    @if ($errors->any())
+        <script>iziToast.error({ title: 'Error', message: 'Data tidak lengkap atau tidak sesuai format.', });</script>
     @endif
 @endpush

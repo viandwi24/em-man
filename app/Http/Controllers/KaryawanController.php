@@ -71,6 +71,8 @@ class KaryawanController extends Controller
             'unit_id' => 'required|numeric',
             'bagian_id' => 'required|numeric',
             'jabatan_id' => 'required|numeric',
+
+            'foto' => 'required'
         ]);
 
         // validator
@@ -81,15 +83,24 @@ class KaryawanController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        
+        // 
+        $foto = $request->foto;
+        $upload = $foto->store('foto_karyawan');
+        $foto_nama = str_replace('foto_karyawan/', '', $upload);
 
         // parse data
         $karyawan_data = $request->only('nama', 'tempat_lahir', 'tanggal_lahir', 'nik', 'alamat', 'tanggal_masuk', 'unit_id', 'outsourcing_id', 'bagian_id', 'jabatan_id');
+        $karyawan_data['foto'] = $foto_nama;
         $pendidikan_data = $request->only('jenjang', 'jurusan', 'nomor_ijazah', 'tahun_lulus');
         $pendidikan_data['nama'] = $request->nama_tempat;
+        $mutasi_data = $request->only('bagian_id', 'jabatan_id', 'unit_id', 'outsourcing_id');
+        $mutasi_data['tanggal'] = $request->tanggal_masuk;
 
         // create
         $karyawan = Karyawan::create($karyawan_data);
         $pendidikan = $karyawan->pendidikan()->create($pendidikan_data);
+        $mutasi = $karyawan->mutasi()->create($mutasi_data);
 
         // return
         return redirect()->route('admin.karyawan.index')->with('alert', ['title' => 'Sukses', 'text' => 'Tambah Data Berhasil.']);
@@ -163,8 +174,18 @@ class KaryawanController extends Controller
             'jabatan_id' => 'required|numeric',
         ]);
 
+
+        // 
+        if ($request->has('foto'))
+        {
+            $foto = $request->foto;
+            $upload = $foto->store('foto_karyawan');
+            $foto_nama = str_replace('foto_karyawan/', '', $upload);
+        }
+
         // data
         $karyawan_data = $request->only('nama', 'tempat_lahir', 'tanggal_lahir', 'nik', 'alamat', 'tanggal_masuk', 'unit_id', 'outsourcing_id', 'bagian_id', 'jabatan_id');
+        if ($request->has('foto')) $karyawan_data['foto'] = $foto_nama; 
         $pendidikan_data = $request->only('jenjang', 'jurusan', 'nomor_ijazah', 'tahun_lulus');
         $pendidikan_data['nama'] = $request->nama_tempat;
 
