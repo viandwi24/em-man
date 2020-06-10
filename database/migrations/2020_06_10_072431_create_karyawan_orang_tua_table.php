@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKaryawanPendidikanTable extends Migration
+class CreateKaryawanOrangTuaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateKaryawanPendidikanTable extends Migration
      */
     public function up()
     {
-        Schema::create('karyawan_pendidikan', function (Blueprint $table) {
+        Schema::create('karyawan_orang_tua', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('karyawan_id')->unsigned();
-            $table->string('jenjang');
-            $table->string('nama');
-            $table->string('jurusan');
-            $table->string('nomor_ijazah');
-            $table->year('tahun_lulus');
+            $table->foreign('karyawan_id')->references('id')->on('karyawan')->onUpdate('cascade')->onDelete('cascade');
+            $table->string("nama");
+            $table->integer("usia");
+            $table->string("pendidikan");
+            $table->enum("keterangan", ["hidup", "meninggal"]);
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateKaryawanPendidikanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('karyawan_pendidikan');
+        Schema::dropIfExists('karyawan_orang_tua');
     }
 }
