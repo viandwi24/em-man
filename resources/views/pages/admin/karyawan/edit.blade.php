@@ -28,6 +28,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="karyawan-tab" data-toggle="tab" href="#karyawan">Detail Karyawan</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga">keluarga</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="orangtua-tab" data-toggle="tab" href="#orangtua">Orang tua</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content" id="myTabContent">
@@ -167,14 +173,57 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade" id="keluarga" role="tabpanel" aria-labelledby="keluarga-tab">
+                                    <div class="text-right mb-2">
+                                        <a href="{{ route('admin.karyawan.create') . '?keluarga=' . $karyawan->id }}" class="btn btn-primary">Tambah Keluarga</a>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-md table-striped" id="table-keluarga" style="width: 100%;">
+                                            <thead>
+                                                <th>ID</th>
+                                                <th>Nama</th>
+                                                <th>Usia</th>
+                                                <th>Pendidikan</th>
+                                                <th>Keterangan</th>
+                                                <th>...</th>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="orangtua" role="tabpanel" aria-labelledby="orangtua-tab">
+                                    <div class="text-right mb-2">
+                                        <a href="{{ route('admin.karyawan.create') . '?orangtua=' . $karyawan->id }}" class="btn btn-primary">Tambah Orangtua</a>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-md table-striped" id="table-orangtua" style="width: 100%;">
+                                            <thead>
+                                                <th>ID</th>
+                                                <th>Nama</th>
+                                                <th>Usia</th>
+                                                <th>Pendidikan</th>
+                                                <th>Keterangan</th>
+                                                <th>...</th>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <button class="btn btn-primary"><i class="fa fa-save"></i> Perbarui</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
                             </div>
                         </div>
                     </div>
 
                     
-                </div>
-                <div class="card-footer text-right">
-                    <button class="btn btn-primary"><i class="fa fa-save"></i> Perbarui</button>
                 </div>
             </form>
         </div>
@@ -184,11 +233,13 @@
 @push('css-library')
     <link rel="stylesheet" href="{{ asset('assets/modules/select2/dist/css/select2.min.css') }}"> 
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
 @endpush
 
 @push('js-library')
     <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>  
     <script src="{{ asset('assets/modules/bootstrap-daterangepicker/daterangepicker.js') }}"></script>  
+    <script type="text/javascript" charset="utf8" src="{{  asset('assets/modules/datatables/datatables.min.js')  }}"></script>
 @endpush
 
 @push('js')
@@ -206,5 +257,55 @@
                 fr.readAsDataURL(files[0]);
             }
         })
+    </script>
+    <script>
+        $('#table-keluarga').DataTable( {
+            ajax: "{{ url()->route('admin.karyawan.edit', [$karyawan->id]) . '?keluarga' }}",
+            columns: [
+                { data: 'id' },
+                { data: 'nama' },
+                { data: 'usia' },
+                { data: 'pendidikan' },
+                { data: 'keterangan' },
+                {
+                    data: null,
+                    render: function ( data, type, row ) {
+                        return `
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                            <form method="post" action="{{ url()->route('admin.karyawan.index') . '/' . $karyawan->id }}?keluarga=`+data.id+`">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-icon text-white btn-danger"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </div>
+                        `;
+                    }
+                }
+            ]
+        });
+        $('#table-orangtua').DataTable( {
+            ajax: "{{ url()->route('admin.karyawan.edit', [$karyawan->id]) . '?orangtua' }}",
+            columns: [
+                { data: 'id' },
+                { data: 'nama' },
+                { data: 'usia' },
+                { data: 'pendidikan' },
+                { data: 'keterangan' },
+                {
+                    data: null,
+                    render: function ( data, type, row ) {
+                        return `
+                        <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                            <form method="post" action="{{ url()->route('admin.karyawan.index') . '/' . $karyawan->id }}?orangtua=`+data.id+`">
+                                @method('delete')
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-icon text-white btn-danger"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </div>
+                        `;
+                    }
+                }
+            ]
+        });
     </script>
 @endpush

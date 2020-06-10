@@ -27,6 +27,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" id="karyawan-tab" data-toggle="tab" href="#karyawan">Detail Karyawan</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="keluarga-tab" data-toggle="tab" href="#keluarga">Keluarga</a>
+                                </li>
                             </ul>
 
                             <div class="tab-content" id="myTabContent">
@@ -176,6 +179,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="keluarga" role="tabpanel" aria-labelledby="keluarga-tab">
+                                    <div class="alert alert-danger text-center">
+                                        Menambahkan keluarga dilakukan di halaman edit karyawan. Silahkan tambah karyawan ini dulu.
                                     </div>
                                 </div>
                             </div>
