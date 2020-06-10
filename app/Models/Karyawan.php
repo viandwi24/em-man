@@ -14,6 +14,16 @@ class Karyawan extends Model
         return $this->hasOne('App\Models\KaryawanPendidikan');
     }
 
+    public function keluarga()
+    {
+        return $this->hasMany('App\Models\KaryawanKeluarga');
+    }
+
+    public function orangtua()
+    {
+        return $this->hasMany('App\Models\KaryawanOrangtua');
+    }
+
 
     public function unit()
     {

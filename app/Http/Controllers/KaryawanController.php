@@ -37,6 +37,13 @@ class KaryawanController extends Controller
      */
     public function create()
     {
+        if (isset($_GET['keluarga']))
+        {
+            return view("pages.admin.karyawan.create_keluarga");
+        } else  if (isset($_GET['orangtua'])) {
+            return view("pages.admin.karyawan.create_orangtua");
+        }
+
         $units = Unit::all();
         $outsourcings = Outsourcing::all();
         $bagians = Bagian::all();
@@ -53,6 +60,45 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
+        if (isset($_GET['keluarga']))
+        {
+            $request->validate([
+                'nama' => 'required',
+                'usia' => 'numeric',
+                'pendidikan' => 'required',
+                'keterangan' => 'required|in:hidup,meninggal',
+            ]);
+
+            $karyawan = Karyawan::findOrFail($request->keluarga);
+            $store = $karyawan->keluarga()->create([
+                'nama' => $request->nama,
+                'usia' => $request->usia,
+                'pendidikan' => $request->pendidikan,
+                'keterangan' => $request->keterangan,
+            ]);
+            
+            // return
+            return redirect()->route('admin.karyawan.edit', [$request->keluarga])->with('alert', ['title' => 'Sukses', 'text' => 'Tambah Data Berhasil.']);
+        } else if (isset($_GET['orangtua'])) {
+            $request->validate([
+                'nama' => 'required',
+                'usia' => 'numeric',
+                'pendidikan' => 'required',
+                'keterangan' => 'required|in:hidup,meninggal',
+            ]);
+
+            $karyawan = Karyawan::findOrFail($request->orangtua);
+            $store = $karyawan->orangtua()->create([
+                'nama' => $request->nama,
+                'usia' => $request->usia,
+                'pendidikan' => $request->pendidikan,
+                'keterangan' => $request->keterangan,
+            ]);
+            
+            // return
+            return redirect()->route('admin.karyawan.edit', [$request->orangtua])->with('alert', ['title' => 'Sukses', 'text' => 'Tambah Data Berhasil.']);
+        }
+
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'tempat_lahir' => 'required',
@@ -134,8 +180,19 @@ class KaryawanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Karyawan $karyawan)
+    public function edit(Request $request, Karyawan $karyawan)
     {
+        if ($request->ajax())
+        {
+            if (isset($_GET['keluarga']))
+            {
+                return DataTables::of($karyawan->keluarga)->make();
+            } else if (isset($_GET['orangtua']))
+            {
+                return DataTables::of($karyawan->orangtua)->make();
+            }
+        }
+
         $units = Unit::all();
         $outsourcings = Outsourcing::all();
         $bagians = Bagian::all();
@@ -205,7 +262,14 @@ class KaryawanController extends Controller
      */
     public function destroy(Karyawan $karyawan)
     {
-        $delete = $karyawan->delete();
+        if (isset($_GET['keluarga']))
+        {
+            $delete = $karyawan->keluarga()->find($_GET['keluarga'])->delete();
+        } else if (isset($_GET['orangtua'])) {
+            $delete = $karyawan->orangtua()->find($_GET['orangtua'])->delete();
+        } else {
+            $delete = $karyawan->delete();
+        }
         return redirect()->back()->with('alert', ['title' => 'Sukses', 'text' => 'Hapus Data Berhasil.']);
     }
 }
