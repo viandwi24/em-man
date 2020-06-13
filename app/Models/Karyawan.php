@@ -59,4 +59,11 @@ class Karyawan extends Model
     {
         return $this->hasMany('App\Models\Mutasi');
     }
+
+
+
+    public function pelatihan()
+    {
+        return $this->belongsToMany('App\Models\Pelatihan', 'pelatihan_karyawan');
+    }
 }
