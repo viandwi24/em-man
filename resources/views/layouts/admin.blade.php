@@ -57,6 +57,7 @@
                 <x-footer />
             @endif
         </div>
+        @stack('modal')
     </div>
 
     <!-- General JS Scripts -->

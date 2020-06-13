@@ -23,6 +23,8 @@ $menus = [
     [ 'type' => 'treeview', 'text' => 'Laporan', 'icon' => 'fas fa-chart-line', 'item' => [
         [ 'type' => 'item', 'text' => 'Laporan Karyawan', 'icon' => 'fas fa-chart-line', 'url' => url()->route('admin.laporan') ],
     ]],
+
+    [ 'type' => 'item', 'text' => 'Pelatihan', 'icon' => 'fas fa-graduation-cap', 'url' => url()->route('admin.periode.index') ],
 ]
 @endphp
 <div class="main-sidebar sidebar-style-2">
