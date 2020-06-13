@@ -32,6 +32,11 @@ Route::group([
     Route::resource('/mutasi', 'MutasiController');
     Route::get('/laporan', 'LaporanController@index')->name('laporan');
     Route::get('/laporan/{id}', 'LaporanController@show')->name('laporan.show');
+    Route::resource('/periode', 'PeriodeController');
+    Route::resource('/periode/{periode}/pelatihan', 'PelatihanController');
+    Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/usulan', 'PelatihanPdfController@usulan')->name("pdf.usulan");
+    Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/daftar-hadir', 'PelatihanPdfController@daftar_hadir')->name("pdf.daftar_hadir");
+    Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/laporan', 'PelatihanPdfController@laporan')->name("pdf.laporan");
 });
 
 
