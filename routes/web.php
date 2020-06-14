@@ -37,6 +37,9 @@ Route::group([
     Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/usulan', 'PelatihanPdfController@usulan')->name("pdf.usulan");
     Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/daftar-hadir', 'PelatihanPdfController@daftar_hadir')->name("pdf.daftar_hadir");
     Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/laporan', 'PelatihanPdfController@laporan')->name("pdf.laporan");
+    Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/evaluasi', 'PelatihanPdfController@evaluasi')->name("pdf.evaluasi");
+    Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/riwayat', 'PelatihanPdfController@riwayat')->name("pdf.riwayat");
+    Route::get('/periode/{periode}/pelatihan/{pelatihan}/pdf/sertifikat', 'PelatihanPdfController@sertifikat')->name("pdf.sertifikat");
 });
 
 
