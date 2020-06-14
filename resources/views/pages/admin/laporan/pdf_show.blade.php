@@ -101,10 +101,12 @@
             <tbody>
                 @php $i = 1; @endphp
                 @foreach ($karyawan->mutasi as $item)
+                <tr>
                     <td>{{ $i }}</td>
                     <td>{{ $item->tanggal }}</td>
                     <td>{{ $item->bagian->nama }}</td>
                     <td>{{ $item->jabatan->nama }}</td>
+                </tr>
                 @endforeach
             </tbody>
         </table>
