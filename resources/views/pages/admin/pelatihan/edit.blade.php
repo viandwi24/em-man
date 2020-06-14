@@ -8,6 +8,18 @@
             </div>
             <div class="card-body">
 
+                <div class="dropdown mb-4">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cetak Pdf
+                    </button>
+                    <div class="dropdown-menu shadow-lg" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" target="_blank" href="{{ route('admin.pdf.usulan', [$periode->id, $pelatihan->id]) }}">Usulan Program</a>
+                        <a class="dropdown-item" target="_blank" href="{{ route('admin.pdf.laporan', [$periode->id, $pelatihan->id]) }}">Laporan</a>
+                        <a class="dropdown-item" target="_blank" href="{{ route('admin.pdf.daftar_hadir', [$periode->id, $pelatihan->id]) }}">Daftar Hadir</a>
+                        <a class="dropdown-item" target="_blank" href="{{ route('admin.pdf.evaluasi', [$periode->id, $pelatihan->id]) }}">Evaluasi</a>
+                    </div>
+                </div>
+
                 <form id="form" action="{{ url()->route('admin.pelatihan.update', [$periode->id, $pelatihan->id]) }}" method="post">
                     @csrf
                     @method('put')
@@ -118,6 +130,12 @@
                                             <td>@{{ i+1 }}</td>
                                             <td>@{{ item.nama }}</td>
                                             <td>
+                                                <a :href="'{{ route('admin.pdf.sertifikat', [$periode->id, $pelatihan->id]) }}?karyawan=' + item.id" class="btn btn-sm btn-primary">
+                                                    Sertifikat
+                                                </a>
+                                                <a :href="'{{ route('admin.pdf.riwayat', [$periode->id, $pelatihan->id]) }}?karyawan=' + item.id" class="btn btn-sm btn-primary">
+                                                    Riwayat
+                                                </a>
                                                 <button @click.prevent="hapusKaryawan(i)" class="btn btn-sm btn-danger">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
