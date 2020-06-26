@@ -67,9 +67,9 @@ class PelatihanController extends Controller
                 'periode_id' => $periode->id,
                 'nama' => $request->nama,
                 'materi' => [],
-                'usulan' => [ 'pelatihan' => [], 'hasil' => '' ],
-                'laporan' => [ 'hasil' => [], 'kesimpulan' => [] ],
-                'evaluasi' => [ 'hasil' => [], 'evaluasi' => [] ],
+                'usulan' => [ 'pelatihan' => '', 'hasil' => '' ],
+                'laporan' => [ 'hasil' => '', 'kesimpulan' => '' ],
+                'evaluasi' => [ 'hasil' => '', 'evaluasi' => '' ],
             ]);
         });
 
@@ -110,24 +110,24 @@ class PelatihanController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'no_dokumentasi' => 'required|nullable',
-            'no_revisi' => 'required|nullable',
-            'karyawan' => 'required|json',
-            'materi' => 'required|json',
-            'dibuat' => 'required|nullable',
-            'dibuat_jabatan' => 'required|nullable',
-            'disetujui' => 'required|nullable',
-            'disetujui_jabatan' => 'required|nullable',
-            'instruktur' => 'required|nullable',
-            'lokasi' => 'required|nullable',
-            'terbit' => 'required|nullable|date',
-            'pelatihan' => 'required|nullable|date',
+            'no_dokumentasi' => 'nullable',
+            'no_revisi' => 'nullable',
+            'karyawan' => 'json',
+            'materi' => 'json',
+            'dibuat' => 'nullable',
+            'dibuat_jabatan' => 'nullable',
+            'disetujui' => 'nullable',
+            'disetujui_jabatan' => 'nullable',
+            'instruktur' => 'nullable',
+            'lokasi' => 'nullable',
+            'terbit' => 'nullable|date',
+            'pelatihan' => 'nullable|date',
 
-            'usulan.hasil' => 'required|nullable',
-            'laporan.hasil' => 'required|nullable',
-            'laporan.kesimpulan' => 'required|nullable',
-            'evaluasi.hasil' => 'required|nullable',
-            'evaluasi.evaluasi' => 'required|nullable',
+            'usulan.hasil' => 'nullable',
+            'laporan.hasil' => 'nullable',
+            'laporan.kesimpulan' => 'nullable',
+            'evaluasi.hasil' => 'nullable',
+            'evaluasi.evaluasi' => 'nullable',
         ]);
 
         $karyawan = json_decode($request->karyawan);
