@@ -18,7 +18,8 @@
 
     <div class="content">
         <div>
-            <h5 class="text-center" style="padding-left: 11rem;">DAFTAR RIWAYAT PERSONIL</h5>
+            <img src="{{ asset('assets/img/header/daftar_riwayat.jpg') }}" width="100%" class="mb-2">
+            {{-- <h5 class="text-center" style="padding-left: 11rem;">DAFTAR RIWAYAT PERSONIL</h5> --}}
             
             <div class="mb-4">
                 <h6>I. IDENTITAS DIRI & KELUARGA</h6>

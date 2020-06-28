@@ -18,6 +18,7 @@
 
     <div class="content">
         <div>
+            <img src="{{ asset('assets/img/header/daftar_hadir.jpg') }}" width="100%" class="mb-2">
             <h5 class="text-center" style="padding-left: 11rem;">DAFTAR HADIR PELATIHAN</h5>
 
             <table class="table table-bordered">
@@ -38,7 +39,7 @@
                     </tr>
                 @endforeach
 
-                @for ($j = 0; $j < (18-$i); $j++)
+                @for ($j = 0; $j < (14-$i); $j++)
                     <tr>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>

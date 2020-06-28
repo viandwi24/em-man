@@ -18,6 +18,7 @@
 
     <div class="content">
         <div>
+            <img src="{{ asset('assets/img/header/evaluasi.jpg') }}" width="100%" class="mb-2">
             <h5 class="text-center" style="padding-left: 11rem;">EVALUASI PELATIHAN</h5>
 
             <table class="table table-bordered">

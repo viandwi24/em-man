@@ -18,7 +18,8 @@
 
     <div class="content">
         <div>
-            <h5 class="text-center" style="padding-left: 10rem;">USULAN KEGIATAN PELATIHAN</h5>
+            {{-- <h5 class="text-center" style="padding-left: 10rem;">USULAN KEGIATAN PELATIHAN</h5> --}}
+            <img src="{{ asset('assets/img/header/usulan.jpg') }}" width="100%">
         </div>
         <table class="table">
             <tr>
@@ -37,15 +38,15 @@
                             <td>1</td>
                             <td>{{ @$pelatihan->karyawan[0]->nama }}</td>
                             <td>{{ @$pelatihan->karyawan[0]->jabatan->nama }}</td>
-                            <td rowspan="12">
+                            <td rowspan="11">
                                 <ul>
                                     @foreach ($pelatihan->materi as $materi)
                                         <li>{{ $materi }}</li>
                                     @endforeach
                                 </ul>
                             </td>
-                            <td rowspan="12">{{ @$pelatihan->usulan->hasil }}</td>
-                            <td rowspan="12">{{ @$pelatihan->pelatihan }}</td>
+                            <td rowspan="11">{{ @$pelatihan->usulan->hasil }}</td>
+                            <td rowspan="11">{{ @$pelatihan->pelatihan }}</td>
                         </tr>
             
                         @php $i = 1; @endphp
@@ -58,7 +59,7 @@
                             </tr>                
                         @endforeach
 
-                        @for ($j = 0; $j < (13-$i); $j++)
+                        @for ($j = 0; $j < (12-$i); $j++)
                             <tr>
                                 <td></td>
                                 <td></td>

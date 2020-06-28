@@ -53,13 +53,13 @@
 
             <p>
                 Yang dilaksanakan pada tanggal {{ @$pelatihan->pelatihan->format('d-m-Y') }} di
-                {{ @env('COMPANY_NAME', 'EM-MAN') }}.
+                {{ env('COMPANY_NAME', 'EM-MAN') }}.
             </p>
 
 
             <div style="position: absolute;bottom:0;margin-bottom:10rem;">
                 <div class="text-right">
-                    {{ @env('COMPANY_NAME', 'EM-MAN') }},  {{ @$pelatihan->pelatihan->format('d-m-Y') }}
+                    {{ env('COMPANY_NAME', 'EM-MAN') }},  {{ @$pelatihan->pelatihan->format('d-m-Y') }}
                 </div>
                 <div class="text-center float-left" style="width: 20%;">
                     <p>Instruktur</p>

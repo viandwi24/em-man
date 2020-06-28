@@ -18,7 +18,8 @@
 
     <div class="content">
         <div>
-            <h5 class="text-center" style="padding-left: 11rem;">LAPORAN PELATIHAN</h5>
+            <img src="{{ asset('assets/img/header/laporan.jpg') }}" width="100%" class="mb-2">
+            <h5 class="text-center" style="padding-left: 11rem;">LAPORAN HASIL PELATIHAN</h5>
 
             <table class="table table-bordered">
                 <tr>
